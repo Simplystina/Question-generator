@@ -20,7 +20,7 @@ router.post("/generate", async (req, res) => {
 // Function to generate a question based on the input word
 async function generateQuestion(word) {
   const openai = require("openai");
-  const apiKey = "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";
+  const apiKey = process.env.api_Key;
 
   const prompt = `Generate a question using the word "${word}"`;
 
