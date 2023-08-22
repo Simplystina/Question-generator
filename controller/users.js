@@ -76,7 +76,7 @@ exports.login = (asyncHandler(async (req,res,next)=>{
             ),
             httpOnly: true
         };
-        //console.log(token,"tokennnnnnnnnn", user, user.firstName)
+      
         //Delete the password from the object so as not to display the hash to the user
         delete userData.password;
 

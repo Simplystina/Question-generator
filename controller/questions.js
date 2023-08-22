@@ -1,17 +1,22 @@
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errResponse");
+const mongoose = require("mongoose")
+const History = require("../model/history")
+
 
 exports.generate = asyncHandler(async (req, res, next) => {
+  
   const word = req.body.word;
-
   // Call the function to generate a question based on the input word
-  const question = await generateQuestion(word);
+   const question = await generateQuestion(word);
+   res.send(question);
 
-  res.send(question);
 });
+
 
 // Function to generate a question based on the input word
 async function generateQuestion(word) {
+  
   const openai = require("openai");
   const apiKey = process.env.api_Key;
 
@@ -33,15 +38,9 @@ async function generateQuestion(word) {
   }
 }
 
-// History Schema
-const historySchema = new mongoose.Schema({
-  userId: String,
-  word: String,
-  question: String,
-  timestamp: { type: Date, default: Date.now },
-});
 
-const History = mongoose.model("History", historySchema);
+
+
 
 exports.save = asyncHandler(async (req, res, next) => {
   const userId = req.body.userId;
@@ -61,10 +60,15 @@ exports.save = asyncHandler(async (req, res, next) => {
 });
 
 exports.getHistory = asyncHandler(async (req, res, next) => {
-  const userId = req.body.userId;
+  try {
+    const userId = req.body.userId;
 
-  // Get the history from the database
-  const history = await History.find({ userId });
+    // Get the history from the database
+    const history = await History.find({ userId });
 
-  res.send(history);
+    res.send(history);
+  } catch (error) {
+    next(error)
+  }
+
 });
