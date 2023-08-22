@@ -52,6 +52,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+//Sign JWT
 userSchema.methods.getSignedJwtToken = function () {
     return jwt.sign(
         {
@@ -61,4 +62,5 @@ userSchema.methods.getSignedJwtToken = function () {
     );
 };
 
-module.exports = mongoose.model('Uers', userSchema)
+module.exports = mongoose.model('Users', userSchema)
+
