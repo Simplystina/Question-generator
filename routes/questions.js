@@ -8,9 +8,11 @@ router.get('/', function(req, res, next) {
   res.status(200).send('Welcome to Question Generator API');
 });
 
-router.post("/generate", protection, controller.generate);
-router.post("/save", protection, controller.save);
-router.get("/history", protection, controller.getHistory);
+router.use(protection)
+router.post("/generate",  controller.generateQuestions);
+router.post("/save",  controller.saveQuestion);
+router.get("/all-generated-questions",  controller.getallGeneratedQuestions);
+router.get("/each-questions/:id", controller.getAGeneratedQuestions);
 
 
 module.exports = router;
