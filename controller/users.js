@@ -15,7 +15,7 @@ exports.signup = asyncHandler(async(req,res,next)=>{
             return next(new ErrorResponse('Password Is Required', 404));
         }
         if(!(firstName && lastName)){
-            return next(new ErrorResponse('Password Is Required', 404));
+            return next(new ErrorResponse('Last Name and First Name are Required', 404));
         }
 
         //Validate if user exist in our database
@@ -52,10 +52,11 @@ exports.login = (asyncHandler(async (req,res,next)=>{
         }
 
         // Check for user
-        const user = await UserModel.findOne({ email }).select('+password');
+        const user = await UserModel.findOne({ email });
         if (!user) {
             return next(new ErrorResponse('Invalid credentials', 401));
         }
+        console.log(user,"user")
 
         // Check if password matches
         const isMatch = await user.matchPassword(password);
@@ -87,6 +88,8 @@ exports.login = (asyncHandler(async (req,res,next)=>{
             
         })
     } catch (error) {
+        console.log(error,"error")
         next(error);
     }
 }))
+

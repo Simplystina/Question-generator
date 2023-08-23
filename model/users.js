@@ -19,20 +19,20 @@ const userSchema = new mongoose.Schema(
         },
         firstName: {
             type: String,
-            required: [false, 'Please enter your first name'],
+            required: [true, 'Please enter your first name'],
             trim: true,
             lowercase: true 
         },
         lastName:{
             type: String,
-            required : [false, 'Please enter your last name'],
+            required : [true, 'Please enter your last name'],
             trim: true,
             lowercase: true
         },
         password: {
             type: String,
             required: [true, 'Please A Valid Password is Required'],
-            select: false
+         
         }
     }
 )

@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 const {connectDB} = require("./config/database")
-const indexRouter = require('./routes/index');
+const questionsRouter = require('./routes/questions');
 const usersRouter = require('./routes/users');
 const errorHandler = require("./middleware/errorHandler")
 
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/questions', indexRouter);
+app.use('/question', questionsRouter);
 app.use('/users', usersRouter);
 
 
